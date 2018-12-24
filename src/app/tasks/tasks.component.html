@@ -1,0 +1,63 @@
+<div id="tasks__lists">
+  <h1>
+    Список заданий
+  </h1>
+  <h3 *ngIf="unfinishedTaskList.length">Задания для выполнения</h3>
+  <ul cdkDropList (cdkDropListDropped)="drop($event)"
+      class="task__list cdk-drop-list"
+      *ngIf="unfinishedTaskList.length">
+    <li
+      class="task__list_item"
+      [ngClass]="[task.state]"
+      cdkDrag
+      *ngFor="let task of unfinishedTaskList">
+      <div class="do__task__wrp all__to__center">
+        <div class="finish__task all__to__center" (click)="finishTask(task.id)">
+          <mat-icon [inline]="true">done</mat-icon>
+        </div>
+      </div>
+      <div class="task__info" (click)="goToDetail(task)">
+        <h3> {{task.title}} </h3>
+        <p>
+          {{task.description}}
+        </p>
+        <p class="date">
+          {{task.deadlineDate}}
+        </p>
+      </div>
+      <div class="task__action all__to__center">
+        <a class="edit__task" [routerLink]="['/edit-task', {id: task.id}]">
+          <mat-icon color="primary" [inline]="true">edit</mat-icon>
+        </a>
+      </div>
+    </li>
+  </ul>
+
+  <h3 *ngIf="finishedTaskList.length">Выполненные задания</h3>
+  <ul class="task__list finished cdk-drop-list" *ngIf="finishedTaskList.length">
+    <li
+      class="task__list_item"
+      [ngClass]="[task.state]"
+      *ngFor="let task of finishedTaskList">
+      <div class="do__task__wrp all__to__center">
+        <div class="finish__task all__to__center">
+          <mat-icon [inline]="true">done</mat-icon>
+        </div>
+      </div>
+      <div class="task__info">
+        <h3> {{task.title}} </h3>
+        <p>
+          {{task.description}}
+        </p>
+        <p class="date">
+          {{task.deadlineDate}}
+        </p>
+      </div>
+    </li>
+  </ul>
+
+
+
+  <a class="addTask all__to__center" routerLink="/add-task"><mat-icon [inline]="true">add</mat-icon></a>
+</div>
+

@@ -1,0 +1,34 @@
+<div id="task__form">
+  <form [formGroup]="taskForm">
+    <div class="form__row">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Заголовок задачи" formControlName="title">
+        <mat-error *ngIf="title.hasError('required')">
+          Заголовок обязателен.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form__row">
+      <mat-form-field class="full-width">
+        <textarea matInput placeholder="Описание задачи" formControlName="description"></textarea>
+        <mat-error *ngIf="description.hasError('required')">
+          Описание для задачи обязательно.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form__row">
+      <mat-form-field class="full-width">
+        <input type="text" matInput placeholder="Срок исполнения в днях" formControlName="deadline">
+        <mat-error *ngIf="deadline.hasError('required')">
+          Необходимо указать срок задачи.
+        </mat-error>
+        <mat-error *ngIf="deadline.hasError('pattern')">
+          Необходимо указать срок в цифрах.
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <button mat-flat-button (click)="doCancel()">Отмена</button>
+    <button *ngIf="type === 'add'" mat-flat-button color="primary" (click)="addTask()">Добавить</button>
+    <button *ngIf="type === 'edit'" mat-flat-button color="primary" (click)="editTask()">Изменить</button>
+  </form>
+</div>
